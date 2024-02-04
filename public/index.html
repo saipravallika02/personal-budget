@@ -111,20 +111,12 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    var data = {
-        labels: [
-            'Eat out',
-            'Rent',
-            'Groceries'
-        ],
+    var budget = {
+        labels: [],
         datasets: [{
             label: 'My First Dataset',
-            data: [30, 350, 90],
-            backgroundColor: [
-                'red',
-                'blue',
-                'green'
-            ]
+            data: [],
+            backgroundColor: []
         }]
     };
 
@@ -132,12 +124,24 @@
         var ctx = document.getElementById("myChart").getContext("2d");
         var myDoughnut = new Chart(ctx, {
             type: 'doughnut',
-            data: data
+            data: budget
         });
     }
 
-    createDoughnut();
-</script>
+    function getBudget() {
+            axios.get('/budget')
+                .then(function (res) {
+                    console.log(res);
+                    for (var i = 0; i < res.data.myBudget.length; i++) {
+                        budget.datasets[0].data[i] = res.data.myBudget[i].budget;
+                        budget.datasets[0].backgroundColor[i] = res.data.myBudget[i].color;
+                        budget.labels[i] = res.data.myBudget[i].title;
+                    }
+                    createDoughnut();
+                });
+        }
+
+        getBudget();</script>
 
 </body>
 </html>
