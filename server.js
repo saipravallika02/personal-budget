@@ -21,6 +21,18 @@ app.get('/budget', (req, res) => {
       });
 });
 
+app.get("/example", (req, res) => {
+    fs.readFile("example.json", "utf8", (err, data) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error reading data");
+        return;
+      }
+      const exampleData = JSON.parse(data);
+      res.json(exampleData);
+    });
+  });
+  
 app.listen(port, () => {
     console.log(`API served at http://localhost:${port}`);
 });
