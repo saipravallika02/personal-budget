@@ -91,9 +91,9 @@
             </section>
     
             <section class="text-box">
-                <h1>Free</h1>
+                <h1>Chart</h1>
                 <p>
-                    This app is free!!! And you are the only one holding your data!
+                    <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </section>
 
@@ -106,6 +106,38 @@
             All rights reserved &copy; Fabio Nolasco
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
+    integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var data = {
+        labels: [
+            'Eat out',
+            'Rent',
+            'Groceries'
+        ],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [30, 350, 90],
+            backgroundColor: [
+                'red',
+                'blue',
+                'green'
+            ]
+        }]
+    };
+
+    function createDoughnut() {
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myDoughnut = new Chart(ctx, {
+            type: 'doughnut',
+            data: data
+        });
+    }
+
+    createDoughnut();
+</script>
 
 </body>
 </html>
